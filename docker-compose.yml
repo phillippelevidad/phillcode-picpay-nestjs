@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: phill-pay-postgres
+    environment:
+      POSTGRES_DB: phillpaydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - phill-pay-network
+
+  redis:
+    image: redis:6.2
+    container_name: phill-pay-redis
+    ports:
+      - '6379:6379'
+    networks:
+      - phill-pay-network
+
+volumes:
+  postgres_data:
+
+networks:
+  phill-pay-network:
+    driver: bridge
